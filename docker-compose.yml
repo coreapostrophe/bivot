@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  bot-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    volumes:
+      - .:/app
+      - /app/__pycache__
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONDONTWRITEBYTECODE=1
+    command: python app.py
+    profiles:
+      - dev
+  bot-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PYTHONPATH=/app
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+    restart: unless-stopped
+    profiles:
+      - prod
