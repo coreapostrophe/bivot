@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-FROM python:3.11-slim
+FROM python:3.11-slim as runner
 
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 
