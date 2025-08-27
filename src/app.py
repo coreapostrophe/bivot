@@ -1,22 +1,28 @@
+import logging
 import os
 
 import discord
 from discord import app_commands
 from dotenv import load_dotenv
 
-intents = discord.Intents.default()
+from telemetry import DiscordLogHandler
 
+DiscordLogHandler()
+
+logger = logging.getLogger('bivot')
+
+intents = discord.Intents.default()
 bot = discord.Client(intents=intents)
 tree = app_commands.CommandTree(bot)
 
 
 @bot.event
 async def on_ready():
-    print(f'🚀 {bot.user} has connected to Discord!')
-    print(f'📊 Connected to {len(bot.guilds)} guilds')
+    logger.info(f'{bot.user} has connected to Discord!')
+    logger.info(f'Connected to {len(bot.guilds)} guilds')
 
     await tree.sync()
-    print('✅ Slash commands synced!')
+    logger.info('Slash commands synced!')
 
 
 @tree.command(name="hello", description="Say hello to the world!")
@@ -29,19 +35,18 @@ if __name__ == "__main__":
     TOKEN = os.getenv('DISCORD_TOKEN')
 
     if not TOKEN:
-        print("❌ Error: DISCORD_TOKEN not found in environment variables!")
-        print("Please create a .env file with your Discord bot token:")
-        print("DISCORD_TOKEN=your_bot_token_here")
+        logger.error("DISCORD_TOKEN not found in environment variables!")
+        logger.error("Please create a .env file with your Discord bot token:")
+        logger.error("DISCORD_TOKEN=your_bot_token_here")
         exit(1)
 
-    print("🚀 Starting Discord bot...")
-    print("📝 Make sure to create a .env file with your DISCORD_TOKEN")
+    logger.info("Starting Discord bot...")
 
     try:
         bot.run(TOKEN)
     except discord.LoginFailure:
-        print(
-            "❌ Invalid bot token! Please check your DISCORD_TOKEN in .env file"
+        logger.error(
+            "Invalid bot token! Please check your DISCORD_TOKEN in .env file"
         )
     except Exception as e:
-        print(f"❌ Error starting bot: {e}")
+        logger.error(f"Unable to start bot: {e}")

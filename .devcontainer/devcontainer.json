@@ -3,7 +3,7 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-	"runArgs": ["--name", "bivot-dev"],
+    "runArgs": ["--name", "bivot-dev"],
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
@@ -28,7 +28,13 @@
                 "python.sortImports.args": ["--profile", "black"],
                 "editor.codeActionsOnSave": {
                     "source.organizeImports": true
-                }
+                },
+                "python.linting.flake8Args": [
+                    "--ignore=E501,W503,E203",
+                    "--max-line-length=88"
+                ],
+                "isort.args": ["--profile", "black"],
+                "python.analysis.autoImportCompletions": true
             }
         }
     },
