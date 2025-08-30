@@ -1,76 +1,74 @@
-# 🤖 Bivot
+# AwwBot
 
-## 🚀 Quick Start
+A simple Discord bot that uses intents to post pictures from r/aww.
+
+## Features
+
+- **TypeScript**: Full TypeScript support with proper type definitions
+- **Modern Build**: Uses Rolldown for fast bundling
+- **Cloudflare Workers**: Runs on Cloudflare Workers platform
+- **Discord Integration**: Handles Discord slash commands and interactions
+
+## Development
 
 ### Prerequisites
 
-- Python 3.11+
-- Discord Bot Token (from Discord Developer Portal)
-- Docker and Docker Compose
-- VS Code with Dev Containers extension (for development)
+- Node.js 18+
+- npm or yarn
 
-### Development
+### Setup
 
-#### Option 1: Local Development
+1. Install dependencies:
 
-1. **Install dependencies:**
    ```bash
-   pip install -r requirements.txt
+   npm install
    ```
 
-2. **Set up your bot token:**
-   ```bash
-   cp env.example .env
-   # Edit .env and add your Discord bot token
+2. Create a `.dev.vars` file with your Discord bot credentials:
+   ```env
+   DISCORD_TOKEN=your_bot_token
+   DISCORD_PUBLIC_KEY=your_public_key
+   DISCORD_APPLICATION_ID=your_application_id
    ```
 
-3. **Run the bot:**
-   ```bash
-   python app.py
-   ```
+### Development Commands
 
-4. **Invite the bot to your server:**
-   Use the OAuth2 URL from Discord Developer Portal
+- **Build**: `npm run build` - Build all TypeScript files with esbuild
+- **Build Server**: `npm run build:server` - Build only the server file
+- **Dev Build**: `npm run dev` - Watch mode for server development
+- **Start**: `npm start` - Start the Wrangler dev server
+- **Lint**: `npm run lint` - Run ESLint
+- **Fix**: `npm run fix` - Auto-fix ESLint issues
+- **Register**: `npm run register` - Register Discord slash commands
 
-#### Option 2: Dev Container (Recommended)
+### Project Structure
 
-1. **Open in VS Code:**
-   - Install the "Dev Containers" extension
-   - Open the project folder
-   - Click "Reopen in Container" when prompted
+```
+src/
+├── commands.ts      # Discord command definitions
+├── reddit.ts        # Reddit API integration
+├── server.ts        # Main server logic
+└── register.ts      # Command registration script
 
-2. **The container will automatically:**
-   - Install Python dependencies
-   - Set up the development environment
+test/
+└── server.test.ts   # Test suite
 
-3. **Set up your bot token:**
-   ```bash
-   cp env.example .env
-   # Edit .env and add your Discord bot token
-   ```
-
-4. **Run the bot:**
-   ```bash
-   python src/app.py
-   ```
-
-### Production Deployment
-
-#### Simple Production Build
-
-```bash
-# Build and run production container
-docker-compose --profile prod up -d
-
-# The bot will run in the background
+dist/                # Built JavaScript files (generated)
 ```
 
-#### Manual Docker Build
+## Build Process
+
+The project uses esbuild to bundle TypeScript files:
+
+1. TypeScript source files are compiled and bundled using esbuild
+2. Output is placed in the `dist/` directory with source maps
+3. Wrangler uses the bundled `dist/server.js` as the entry point
+4. Build configuration is centralized in `esbuild.config.js`
+
+## Deployment
+
+Deploy to Cloudflare Workers:
 
 ```bash
-# Build the image
-docker build -t discord-bot .
-
-# Run the container
-docker run --env-file .env discord-bot
+npm run publish
 ```

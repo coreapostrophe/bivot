@@ -1,6 +1,5 @@
-.env
-
-# Python cache files
-__pycache__/
-*.py[cod]
-*$py.class
+node_modules/
+coverage/
+.dev.vars
+.wrangler/
+dist/
