@@ -1,6 +1,5 @@
 import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
 import dotenv from 'dotenv';
-import process from 'process';
 
 async function main() {
   dotenv.config({ path: '.dev.vars' });

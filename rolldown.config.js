@@ -13,13 +13,14 @@ export default defineConfig([
     external: ['itty-router', 'discord-interactions'],
   },
   {
-    input: 'src/reddit.ts',
+    input: 'src/register.ts',
     output: {
-      file: 'dist/reddit.js',
+      file: 'dist/register.js',
       format: 'es',
       sourcemap: true,
     },
     target: 'es2022',
     platform: 'neutral',
+    external: ['dotenv'],
   },
 ]);
