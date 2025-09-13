@@ -11,14 +11,18 @@
     "fix": "eslint --fix '**/*.{js,ts}'",
     "lint": "eslint '**/*.{js,ts}'",
     "register": "node dist/register.js",
+    "preregister": "npm run build",
     "publish": "wrangler deploy",
     "build": "rolldown -c rolldown.config.js",
-    "dev": "rolldown -c rolldown.config.js --watch"
+    "dev": "wrangler dev & rolldown -c rolldown.config.js --watch"
   },
   "keywords": [],
   "author": "Justin Beckwith <justin.beckwith@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/builders": "^1.11.3",
+    "@discordjs/rest": "^2.6.0",
+    "discord-api-types": "^0.38.22",
     "discord-interactions": "^4.0.0",
     "itty-router": "^5.0.9"
   },
