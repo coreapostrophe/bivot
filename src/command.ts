@@ -67,5 +67,7 @@ export abstract class BivotCommand {
     return this.builder.toJSON();
   }
 
-  abstract respond(interaction: BivotCommandInteraction): Promise<BivotCommandResponse>;
+  abstract respond(
+    interaction: BivotCommandInteraction,
+  ): Promise<BivotCommandResponse>;
 }
