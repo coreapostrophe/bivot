@@ -1,5 +1,8 @@
-import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
 import dotenv from 'dotenv';
+
+import { CommandRegistry } from './command-registry';
+
+const commandRegistry = new CommandRegistry();
 
 async function main() {
   dotenv.config({ path: '.dev.vars' });
@@ -24,7 +27,7 @@ async function main() {
       Authorization: `Bot ${token}`,
     },
     method: 'PUT',
-    body: JSON.stringify([AWW_COMMAND, INVITE_COMMAND]),
+    body: commandRegistry.toJSONString(),
   });
 
   if (response.ok) {
