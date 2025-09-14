@@ -1,7 +1,7 @@
 {
-  "name": "awwbot",
+  "name": "bivot",
   "version": "1.0.0",
-  "description": "A simple discord bot that uses intents to post pictures from r/aww",
+  "description": "The Bivo Bot",
   "type": "module",
   "private": true,
   "main": "dist/server.js",
@@ -11,16 +11,19 @@
     "ngrok": "ngrok http 8787",
     "fix": "eslint --fix '**/*.{js,ts}'",
     "lint": "eslint '**/*.{js,ts}'",
-    "register": "node dist/register.js",
-    "preregister": "npm run build",
+    "register:dev": "node dist/register.js --env dev",
+    "register:prod": "node dist/register.js --env prod",
+    "preregister:dev": "npm run build",
+    "preregister:prod": "npm run build",
     "publish": "wrangler deploy",
+    "prepublish": "npm run build",
     "build": "rolldown -c rolldown.config.js",
     "dev": "wrangler dev & rolldown -c rolldown.config.js --watch",
     "predev": "npm run types",
     "types": "wrangler types ./src/worker-configuration.d.ts"
   },
   "keywords": [],
-  "author": "Justin Beckwith <justin.beckwith@gmail.com>",
+  "author": "Bivo",
   "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "^1.11.3",
@@ -45,6 +48,6 @@
     "sinon": "^21.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.0.0",
-    "wrangler": "^4.13.2"
+    "wrangler": "^4.36.0"
   }
 }
