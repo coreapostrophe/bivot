@@ -6,7 +6,7 @@ import {
   InteractionResponseType,
   InteractionType,
 } from 'discord-api-types/v10';
-import { CommandRegistry } from './command-registry';
+import { CommandRegistry } from './shared/command-registry';
 import { REST } from '@discordjs/rest';
 
 class JsonResponse extends Response {
