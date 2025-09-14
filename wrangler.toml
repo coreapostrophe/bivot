@@ -1,8 +1,8 @@
-name = "awwbot"
+name = "bivot"
 main = "./dist/server.js"
-compatibility_date="2023-05-18"
+compatibility_date="2025-09-01"
 
-# [secrets]
-# DISCORD_TOKEN
-# DISCORD_PUBLIC_KEY
-# DISCORD_APPLICATION_ID
+[[d1_databases]]
+binding = "DB"
+database_name = "bivot_db"
+database_id = "e07a91f2-a531-4c2a-8d7a-fa743f653140"
