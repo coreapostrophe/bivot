@@ -32,7 +32,7 @@ This monorepo uses [Turbo](https://turbo.build/) for build orchestration and con
 3. **Set Up Environment Variables**
 
    ```bash
-   cp packages/interactions/example.env .env
+   cp packages/interactions/example.env packages/interactions/.env
    ```
 
    Fill in your Discord bot credentials in `.env`:
@@ -66,30 +66,39 @@ This monorepo uses [Turbo](https://turbo.build/) for build orchestration and con
 1. Create a new directory under `packages/interactions/src/features/` for your command
 2. Create a command class that extends `BivotCommand`:
 
-```typescript
-import { SlashCommandBuilder } from '@discordjs/builders';
-import {
-  BivotCommand,
-  BivotCommandInteraction,
-  BivotCommandResponse,
-} from '../../shared/command';
+   ```typescript
+   import { SlashCommandBuilder } from '@discordjs/builders';
+   import {
+     BivotCommand,
+     BivotCommandInteraction,
+     BivotCommandResponse,
+   } from '../../shared/command';
 
-export class MyCommand extends BivotCommand {
-  constructor() {
-    super(
-      new SlashCommandBuilder()
-        .setName('mycommand')
-        .setDescription('My awesome command')
-    );
-  }
+   export class MyCommand extends BivotCommand {
+     constructor() {
+       super(
+         new SlashCommandBuilder()
+           .setName('mycommand')
+           .setDescription('My awesome command')
+       );
+     }
 
-  async respond(
-    interaction: BivotCommandInteraction
-  ): Promise<BivotCommandResponse> {
-    return interaction.respondMessage('Hello from my command!');
-  }
-}
-```
+     async respond(
+       interaction: BivotCommandInteraction
+     ): Promise<BivotCommandResponse> {
+       return interaction.respondMessage('Hello from my command!');
+     }
+   }
+   ```
 
-3. Export your command from `packages/interactions/src/features/my-command/index.ts`
-4. Register it in `packages/interactions/src/shared/command-registry.ts`
+3. Create a feature class that extends `BivotFeature`:
+
+   ```typescript
+   export class MyFeature extends BivotFeature {
+     constructor() {
+       super([new MyCommand()]);
+     }
+   }
+   ```
+
+4. Instantiated the feature in `packages/interactions/src/index.ts`.
