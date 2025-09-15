@@ -10,7 +10,8 @@
                 "esbenp.prettier-vscode",
                 "ms-vscode.vscode-eslint",
                 "bradlc.vscode-tailwindcss",
-                "ms-vscode.vscode-json"
+                "ms-vscode.vscode-json",
+                "donjayamanne.githistory"
             ],
             "settings": {
                 "typescript.preferences.includePackageJsonAutoImports": "on",
@@ -25,7 +26,7 @@
     "forwardPorts": [
         3000,
         8080,
-        8081
+        8787
     ],
     "postCreateCommand": "npm install",
     "remoteUser": "node"
