@@ -5,9 +5,7 @@ import { CommandRegistry } from './shared/command-registry';
 const commandRegistry = new CommandRegistry();
 
 async function main() {
-  const env = process.argv[3];
-
-  dotenv.config({ path: `.${env}.vars` });
+  dotenv.config({ path: `.env` });
 
   const token = process.env.DISCORD_TOKEN;
   const applicationId = process.env.DISCORD_APPLICATION_ID;
@@ -17,7 +15,7 @@ async function main() {
   }
   if (!applicationId) {
     throw new Error(
-      'The DISCORD_APPLICATION_ID environment variable is required.',
+      'The DISCORD_APPLICATION_ID environment variable is required.'
     );
   }
 

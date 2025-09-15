@@ -10,7 +10,7 @@ import { CommandRegistry } from './shared/command-registry';
 import { REST } from '@discordjs/rest';
 
 class JsonResponse extends Response {
-  constructor(body: any, init?: ResponseInit) {
+  constructor(body: unknown, init?: ResponseInit) {
     const jsonBody = JSON.stringify(body);
     init = init || {
       headers: {
@@ -32,7 +32,7 @@ router.get('/', (request: IRequest, env: Env) => {
 router.post('/', async (request: IRequest, env: Env) => {
   const { isValid, interaction } = await server.verifyDiscordRequest(
     request,
-    env,
+    env
   );
   if (!isValid || !interaction) {
     return new Response('Bad request signature.', { status: 401 });
@@ -55,13 +55,13 @@ router.post('/', async (request: IRequest, env: Env) => {
   }
 
   const discordRESTClient = new REST({ version: '10' }).setToken(
-    env.DISCORD_TOKEN,
+    env.DISCORD_TOKEN
   );
 
   const response = await commandRegistry.handle(
     name,
     interaction as APIChatInputApplicationCommandInteraction,
-    discordRESTClient,
+    discordRESTClient
   );
 
   if (!response) {
@@ -78,7 +78,7 @@ router.all('*', () => new Response('Not Found.', { status: 404 }));
 
 async function verifyDiscordRequest(
   request: IRequest,
-  env: Env,
+  env: Env
 ): Promise<{ isValid: boolean; interaction?: APIInteraction }> {
   const signature = request.headers.get('x-signature-ed25519');
   const timestamp = request.headers.get('x-signature-timestamp');

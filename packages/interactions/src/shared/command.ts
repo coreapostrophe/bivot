@@ -23,7 +23,7 @@ export type BivotCommandResponse =
 export class BivotCommandInteraction {
   constructor(
     protected discordRESTClient: REST,
-    protected body: APIChatInputApplicationCommandInteraction,
+    protected body: APIChatInputApplicationCommandInteraction
   ) {}
 
   respondMessage(content: string): BivotCommandResponse {
@@ -40,14 +40,14 @@ export class BivotCommandInteraction {
   }
 
   getOption(
-    name: string,
+    name: string
   ): APIApplicationCommandInteractionDataOption | undefined {
-    return this.body.data.options?.find((o) => o.name === name);
+    return this.body.data.options?.find(o => o.name === name);
   }
 
   async getUserOption(name: string): Promise<APIUser | undefined> {
     const userOption = this.getOption(
-      name,
+      name
     ) as APIApplicationCommandInteractionDataUserOption;
 
     const userId = userOption.value;
@@ -68,6 +68,6 @@ export abstract class BivotCommand {
   }
 
   abstract respond(
-    interaction: BivotCommandInteraction,
+    interaction: BivotCommandInteraction
   ): Promise<BivotCommandResponse>;
 }

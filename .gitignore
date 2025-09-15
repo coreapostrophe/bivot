@@ -1,6 +1,7 @@
 node_modules/
 coverage/
-.dev.vars
+.turbo/
+.env
 .prod.vars
 .wrangler/
 dist/
