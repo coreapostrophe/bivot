@@ -5,9 +5,7 @@ import { CommandRegistry } from './shared/command-registry';
 const commandRegistry = new CommandRegistry();
 
 async function main() {
-  const env = process.argv[3];
-
-  dotenv.config({ path: `.${env}.vars` });
+  dotenv.config({ path: `.dev.vars` });
 
   const token = process.env.DISCORD_TOKEN;
   const applicationId = process.env.DISCORD_APPLICATION_ID;
