@@ -1,74 +1,91 @@
-# AwwBot
+# 🤖 Bivot - Discord Bot
 
-A simple Discord bot that uses intents to post pictures from r/aww.
+A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers.
 
-## Features
-
-- **TypeScript**: Full TypeScript support with proper type definitions
-- **Modern Build**: Uses Rolldown for fast bundling
-- **Cloudflare Workers**: Runs on Cloudflare Workers platform
-- **Discord Integration**: Handles Discord slash commands and interactions
-
-## Development
+## 🤝 Contributing
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- [Docker](https://www.docker.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- A Discord application and bot token
 
-### Setup
+### Getting Started
 
-1. Install dependencies:
+1. **Start the DevContainer**
+
+   - Open this project in VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+   - The devcontainer will automatically install dependencies and set up the environment
+
+2. **Create a Development Discord Bot**
+
+   - Go to [Discord Developer Portal](https://discord.com/developers/applications)
+   - Create a new application
+   - Go to the "Bot" section and create a bot
+   - Copy the bot token
+   - Go to "General Information" and copy the Application ID and Public Key
+
+3. **Set Up Environment Variables**
 
    ```bash
-   npm install
+   cp example.dev.vars .dev.vars
    ```
 
-2. Create a `.dev.vars` file with your Discord bot credentials:
+   Fill in your Discord bot credentials in `.dev.vars`:
+
    ```env
-   DISCORD_TOKEN=your_bot_token
-   DISCORD_PUBLIC_KEY=your_public_key
    DISCORD_APPLICATION_ID=your_application_id
+   DISCORD_PUBLIC_KEY=your_public_key
+   DISCORD_TOKEN=your_bot_token
    ```
 
-### Development Commands
+4. **Start Development**
 
-- **Build**: `npm run build` - Build all TypeScript files with esbuild
-- **Build Server**: `npm run build:server` - Build only the server file
-- **Dev Build**: `npm run dev` - Watch mode for server development
-- **Start**: `npm start` - Start the Wrangler dev server
-- **Lint**: `npm run lint` - Run ESLint
-- **Fix**: `npm run fix` - Auto-fix ESLint issues
-- **Register**: `npm run register` - Register Discord slash commands
+   ```bash
+   npm run dev
+   ```
 
-### Project Structure
+   This starts the Cloudflare Workers development server on `http://localhost:8787`
 
+5. **Register Commands**
+
+   ```bash
+   npm run register
+   ```
+
+6. **Invite Bot to Server**
+
+   Use the install link of your application inside the Discord Developer Portal, and add the bot to the server.
+
+### Adding New Commands
+
+1. Create a new directory under `src/features/` for your command
+2. Create a command class that extends `BivotCommand`:
+
+```typescript
+import { SlashCommandBuilder } from '@discordjs/builders';
+import {
+  BivotCommand,
+  BivotCommandInteraction,
+  BivotCommandResponse,
+} from '../../shared/command';
+
+export class MyCommand extends BivotCommand {
+  constructor() {
+    super(
+      new SlashCommandBuilder()
+        .setName('mycommand')
+        .setDescription('My awesome command'),
+    );
+  }
+
+  async respond(
+    interaction: BivotCommandInteraction,
+  ): Promise<BivotCommandResponse> {
+    return interaction.respondMessage('Hello from my command!');
+  }
+}
 ```
-src/
-├── commands.ts      # Discord command definitions
-├── reddit.ts        # Reddit API integration
-├── server.ts        # Main server logic
-└── register.ts      # Command registration script
 
-test/
-└── server.test.ts   # Test suite
-
-dist/                # Built JavaScript files (generated)
-```
-
-## Build Process
-
-The project uses esbuild to bundle TypeScript files:
-
-1. TypeScript source files are compiled and bundled using esbuild
-2. Output is placed in the `dist/` directory with source maps
-3. Wrangler uses the bundled `dist/server.js` as the entry point
-4. Build configuration is centralized in `esbuild.config.js`
-
-## Deployment
-
-Deploy to Cloudflare Workers:
-
-```bash
-npm run publish
-```
+3. Export your command from `src/features/my-command/index.ts`
+4. Register it in `src/shared/command-registry.ts`
