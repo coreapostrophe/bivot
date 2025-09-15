@@ -10,17 +10,17 @@ export class CoinFlipCommand extends BivotCommand {
     super(
       new SlashCommandBuilder()
         .setName('coinflip')
-        .setDescription('Flip a coin!'),
+        .setDescription('Flip a coin!')
     );
   }
 
   async respond(
-    interaction: BivotCommandInteraction,
+    interaction: BivotCommandInteraction
   ): Promise<BivotCommandResponse> {
     const result = Math.round(Math.random()) ? 'heads' : 'tails';
 
     return interaction.respondMessage(
-      `You flipped ${result}! <:deal:1265805883426734192>`,
+      `You flipped ${result}! <:deal:1265805883426734192>`
     );
   }
 }

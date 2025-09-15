@@ -17,6 +17,7 @@
                 "typescript.preferences.includePackageJsonAutoImports": "on",
                 "editor.formatOnSave": true,
                 "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "prettier.configPath": ".prettierrc.json",
                 "editor.codeActionsOnSave": {
                     "source.fixAll.eslint": "explicit"
                 }

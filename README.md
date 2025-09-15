@@ -1,6 +1,12 @@
 # 🤖 Bivot - Discord Bot
 
-A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers.
+A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers. This is a monorepo containing multiple packages for different bot functionalities.
+
+## 📁 Project Structure
+
+This monorepo uses [Turbo](https://turbo.build/) for build orchestration and contains the following packages:
+
+- `packages/interactions` - Main Discord bot interactions package with slash commands and event handling
 
 ## 🤝 Contributing
 
@@ -13,12 +19,10 @@ A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers.
 ### Getting Started
 
 1. **Start the DevContainer**
-
    - Open this project in VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
    - The devcontainer will automatically install dependencies and set up the environment
 
 2. **Create a Development Discord Bot**
-
    - Go to [Discord Developer Portal](https://discord.com/developers/applications)
    - Create a new application
    - Go to the "Bot" section and create a bot
@@ -28,10 +32,10 @@ A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers.
 3. **Set Up Environment Variables**
 
    ```bash
-   cp example.dev.vars .dev.vars
+   cp packages/interactions/example.env .env
    ```
 
-   Fill in your Discord bot credentials in `.dev.vars`:
+   Fill in your Discord bot credentials in `.env`:
 
    ```env
    DISCORD_APPLICATION_ID=your_application_id
@@ -50,7 +54,7 @@ A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers.
 5. **Register Commands**
 
    ```bash
-   npm run register
+   npm run register -w @bivot/interactions
    ```
 
 6. **Invite Bot to Server**
@@ -59,7 +63,7 @@ A Bivo Discord bot built with TypeScript and deployed on Cloudflare Workers.
 
 ### Adding New Commands
 
-1. Create a new directory under `src/features/` for your command
+1. Create a new directory under `packages/interactions/src/features/` for your command
 2. Create a command class that extends `BivotCommand`:
 
 ```typescript
@@ -75,17 +79,17 @@ export class MyCommand extends BivotCommand {
     super(
       new SlashCommandBuilder()
         .setName('mycommand')
-        .setDescription('My awesome command'),
+        .setDescription('My awesome command')
     );
   }
 
   async respond(
-    interaction: BivotCommandInteraction,
+    interaction: BivotCommandInteraction
   ): Promise<BivotCommandResponse> {
     return interaction.respondMessage('Hello from my command!');
   }
 }
 ```
 
-3. Export your command from `src/features/my-command/index.ts`
-4. Register it in `src/shared/command-registry.ts`
+3. Export your command from `packages/interactions/src/features/my-command/index.ts`
+4. Register it in `packages/interactions/src/shared/command-registry.ts`

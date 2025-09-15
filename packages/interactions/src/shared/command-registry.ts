@@ -15,8 +15,8 @@ export class CommandRegistry {
 
   constructor() {
     this.commands = new Map();
-    Features.forEach((feature) =>
-      feature.getCommands().forEach((command) => this.register(command)),
+    Features.forEach(feature =>
+      feature.getCommands().forEach(command => this.register(command))
     );
   }
 
@@ -27,7 +27,7 @@ export class CommandRegistry {
   toJSONString(): string {
     const jsonBodies: RESTPostAPIChatInputApplicationCommandsJSONBody[] =
       Array.from(this.commands.entries()).map(([, command]) =>
-        command.toJSONBody(),
+        command.toJSONBody()
       );
 
     return JSON.stringify(jsonBodies);
@@ -36,7 +36,7 @@ export class CommandRegistry {
   async handle(
     name: string,
     interaction: APIChatInputApplicationCommandInteraction,
-    discordRESTClient: REST,
+    discordRESTClient: REST
   ): Promise<BivotCommandResponse | null> {
     const command = this.commands.get(name);
 
@@ -45,7 +45,7 @@ export class CommandRegistry {
     }
 
     return command.respond(
-      new BivotCommandInteraction(discordRESTClient, interaction),
+      new BivotCommandInteraction(discordRESTClient, interaction)
     );
   }
 }

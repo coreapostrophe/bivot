@@ -1,0 +1,24 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "DISCORD_TOKEN",
+    "DISCORD_APPLICATION_ID",
+    "DISCORD_PUBLIC_KEY"
+  ],
+  "globalDependencies": [".env"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "publish": {
+      "dependsOn": ["^publish"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

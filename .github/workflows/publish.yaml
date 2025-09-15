@@ -18,8 +18,8 @@ jobs:
         run: |
           npm install
           npm run build
-      - name: Register commands
-        run: npm run register
+      - name: Register interactions commands
+        run: npm run register -w @bivot/interactions
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
