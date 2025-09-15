@@ -8,15 +8,14 @@ import {
   BivotCommandResponse,
 } from './command';
 import { REST } from '@discordjs/rest';
-import { CoinFlipCommand } from '../features/coin-flip';
+import FeatureCommands from '../features';
 
 export class CommandRegistry {
   private commands: Map<string, BivotCommand>;
 
   constructor() {
     this.commands = new Map();
-
-    this.register(new CoinFlipCommand());
+    FeatureCommands.forEach((command) => this.register(command));
   }
 
   private register(command: BivotCommand): void {
