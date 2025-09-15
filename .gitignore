@@ -4,3 +4,4 @@ coverage/
 .prod.vars
 .wrangler/
 dist/
+types/worker-configuration.d.ts

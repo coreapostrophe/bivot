@@ -13,8 +13,9 @@
     "publish": "wrangler deploy",
     "build": "rolldown -c rolldown.config.js",
     "build:watch": "rolldown -c rolldown.config.js --watch",
-    "dev": "wrangler dev --ip 0.0.0.0 & rolldown -c rolldown.config.js --watch",
-    "types": "wrangler types ./src/worker-configuration.d.ts"
+    "dev": "concurrently --names \"build,server\" --prefix-colors \"blue,green\" \"npm run build:watch\" \"npm run start\"",
+    "postinstall": "npm run types",
+    "types": "wrangler types ./types/worker-configuration.d.ts"
   },
   "keywords": [],
   "author": "Bivo",
@@ -31,6 +32,7 @@
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "concurrently": "^9.2.1",
     "dotenv": "^16.0.3",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
