@@ -1,5 +1,5 @@
-import { CoinFlipCommand } from './coin-flip';
+import { CoinFlipFeature } from './coin-flip';
 
-const featureCommands = [new CoinFlipCommand()];
+const features = [new CoinFlipFeature()];
 
-export default featureCommands;
+export default features;
