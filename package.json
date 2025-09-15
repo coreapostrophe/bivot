@@ -15,7 +15,7 @@
     "build:watch": "rolldown -c rolldown.config.js --watch",
     "dev": "concurrently --names \"build,server\" --prefix-colors \"blue,green\" \"npm run build:watch\" \"npm run start\"",
     "postinstall": "npm run types",
-    "types": "wrangler types ./types/worker-configuration.d.ts"
+    "types": "mkdir -p types && wrangler types ./types/worker-configuration.d.ts"
   },
   "keywords": [],
   "author": "Bivo",
