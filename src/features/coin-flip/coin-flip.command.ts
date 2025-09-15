@@ -19,6 +19,8 @@ export class CoinFlipCommand extends BivotCommand {
   ): Promise<BivotCommandResponse> {
     const result = Math.round(Math.random()) ? 'heads' : 'tails';
 
-    return interaction.respondMessage(`You flipped ${result}! <:deal:1265805883426734192>`);
+    return interaction.respondMessage(
+      `You flipped ${result}! <:deal:1265805883426734192>`,
+    );
   }
 }
