@@ -7,8 +7,6 @@ services:
     environment:
       - NODE_ENV=development
     ports:
-      - '3000:3000'
-      - '8080:8080'
       - '8787:8787'
     networks:
       - bivot-network
